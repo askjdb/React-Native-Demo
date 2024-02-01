@@ -1,17 +1,37 @@
 {
-  "name": "AwesomeProject",
+  "name": "1",
   "version": "0.0.1",
   "private": true,
   "scripts": {
-    "android": "react-native run-android",
+    "android": "react-native run-android --experimental-debugger",
     "ios": "react-native run-ios",
     "lint": "eslint .",
-    "start": "react-native start",
+    "start": "react-native start --experimental-debugger",
     "test": "jest"
   },
   "dependencies": {
+    "@react-native-community/geolocation": "^3.1.0",
+    "@react-navigation/bottom-tabs": "^6.5.11",
+    "@react-navigation/native": "^6.1.9",
+    "@react-navigation/native-stack": "^6.9.17",
+    "@react-navigation/stack": "^6.3.20",
+    "@rneui/base": "^4.0.0-rc.7",
+    "@rneui/themed": "^4.0.0-rc.8",
+    "deprecated-react-native-prop-types": "^5.0.0",
+    "install": "^0.13.0",
     "react": "18.2.0",
-    "react-native": "0.73.2"
+    "react-native": "^0.73.2",
+    "react-native-safe-area-context": "^4.8.2",
+    "react-native-screens": "^3.29.0",
+    "react-native-static-safe-area-insets": "^2.2.0",
+    "react-native-vector-icons": "^10.0.3",
+    "react-native-vision-camera": "^3.8.2",
+    "react-native-websocket": "^1.0.2",
+    "react-redux": "^9.1.0",
+    "redux": "^4.2.1",
+    "redux-devtools-extension": "^2.13.9",
+    "redux-thunk": "^3.1.0",
+    "remote-redux-devtools": "^0.5.16"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",
@@ -28,6 +48,7 @@
     "jest": "^29.6.3",
     "prettier": "2.8.8",
     "react-test-renderer": "18.2.0",
+    "redux-devtools": "^3.7.0",
     "typescript": "5.0.4"
   },
   "engines": {
