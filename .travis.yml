@@ -1,4 +1,11 @@
-language: node_js
+language: node_js  # 设置语言
+
 node_js:
-  - "20.10.0"
-elm-test: "npm run test"
+  - 20 # 指定node.js版本
+
+cache: yarn # 开启缓存
+
+install:
+  - yarn
+script:
+  - yarn test
