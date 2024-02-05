@@ -24,7 +24,7 @@ export default function Login() {
   );
   const [msg, setMsg] = useState('');
   const [ifShowWarn, setTfSowWarn] = useState<boolean>(false);
-  const navigation = useNavigation<useNavigationType>();
+  const navigation = useNavigation<useNavigationType<"Register">>();
 
   const [showWait, setShowWait] = useState<boolean>(false);
   const ifShowPassword = useCallback(() => {

@@ -1,4 +1,4 @@
-import React, {useState, useCallback} from 'react';
+import React, {useState, useCallback, useEffect} from 'react';
 import {
   Text,
   StyleSheet,
@@ -11,24 +11,41 @@ import {
 import {useNavigation} from '@react-navigation/native';
 import {Input, Button, Tile} from '@rneui/themed';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-
-import {useNavigationType, userAction} from '../../utils';
-import { useDispatch } from "react-redux"
-import { Dispatch } from 'redux';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import {useNavigationType, userAction, userInfo} from '../../utils';
+import {useDispatch} from 'react-redux';
+import {Dispatch} from 'redux';
 
 export default function Login() {
   const [password, setPassword] = useState<string>('');
   const [account, setCount] = useState<string>('');
   const [showPassword, setShowPassword] = useState<boolean | undefined>(false);
-  const [msg, setMsg] = useState("")
+  const [msg, setMsg] = useState('');
   const [ifShowWarn, setTfSowWarn] = useState<boolean>(false);
-  const navigation = useNavigation<useNavigationType>();
+  const navigation = useNavigation<useNavigationType<'Login'>>();
 
   const dispatch = useDispatch<Dispatch<userAction>>();
   const [showWait, setShowWait] = useState<boolean>(false);
   const ifShowPassword = useCallback(() => {
-    setShowPassword(()=>showPassword ? false : true);
+    setShowPassword(() => (showPassword ? false : true));
   }, [showPassword]);
+
+  useEffect(() => {
+    toWhere();
+  },[]);
+  async function toWhere() {
+    try {
+      const result = await AsyncStorage.getItem('userid');
+      if (result !== null) {
+        dispatch({type: 'LOGIN', data:{userId:result}});
+          navigation.replace('Index');
+      } else {
+        Alert.alert('Token过期', '请重新登录');
+      }
+    } catch (e) {
+      console.log(e);
+    }
+  }
 
   const toRegister = useCallback(() => {
     navigation.replace('Register');
@@ -50,26 +67,24 @@ export default function Login() {
         const result = await response.json();
         setShowWait(false);
         setTfSowWarn(true);
-        setMsg(result.msg)
-        setTimeout(() => {
-          setTfSowWarn(false);
-        }, 1500);
+        setMsg(result.msg);
         if (result.code === 1) {
-          dispatch({type:"LOGIN",data:result.data.userID})
+          dispatch({type: 'LOGIN', data: {userId:result.data.userID}});
+          await AsyncStorage.setItem('userid',result.data.userID);
           navigation.replace('Index');
         }
       })
       .catch(e => {
         console.log(e);
-      });
-  }, [password,account,navigation]);
+      }).finally(()=>{
+        setTfSowWarn(false);
+      })
+  }, [password, account, navigation]);
 
   return (
     <SafeAreaView style={[styles.concenter]}>
       <View style={[styles.LoginBox]}>
-        {ifShowWarn ? (
-          <Text style={styles.subHeader}>{msg}</Text>
-        ) : null}
+        {ifShowWarn ? <Text style={styles.subHeader}>{msg}</Text> : null}
         {showWait ? <ActivityIndicator color={'red'} size={'large'} /> : null}
         <Input
           disabledInputStyle={{backgroundColor: '#ddd'}}

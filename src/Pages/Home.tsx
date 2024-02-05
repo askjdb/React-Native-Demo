@@ -9,9 +9,12 @@ import {useSelector} from 'react-redux';
 export default function Home() {
   const [userList, setUserList] = useState([]);
   const [loading, setLoading] = useState<boolean>();
-  const navigation = useNavigation<useNavigationType>();
+  const navigation = useNavigation<useNavigationType<"Home">>();
   const userId = useSelector<RootState, userInfo>(state => state.UserInfo);
 
+  useEffect(()=>{
+    
+  },[])
   useEffect(() => {
     setLoading(true);
     fetch('http://172.16.10.157:3000/alluser', {

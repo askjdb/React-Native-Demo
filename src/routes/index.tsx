@@ -1,7 +1,6 @@
 import React from 'react';
 import {Text, StyleSheet, Button, View} from 'react-native';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
-import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import Home from '../Pages/Home';
 import Setting from '../Pages/Setting';
 import User from '../Pages/User';
@@ -12,7 +11,7 @@ export default function Index() {
   return (
     <View style={[styles.concenter]}>
       <Tab.Navigator
-        initialRouteName={'Setting'}
+        initialRouteName={'Home'}
         screenOptions={({route}) => ({
           tabBarLabel: props => {
             const {focused, color} = props;

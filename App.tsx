@@ -11,12 +11,12 @@ import {Provider} from 'react-redux';
 import store from './src/redux/store';
 import {createContext, useState} from 'react';
 
-export const USERID = createContext((userId:string)=>{});
+export const USERID = createContext((userId: string) => {});
 
 const stack = createNativeStackNavigator();
 
 function App() {
-  const [userID, setUserID] = useState<string>("");
+  const [userID, setUserID] = useState<string>('');
   const getUserId = (userid: string) => {
     setUserID(userid);
   };
@@ -25,7 +25,6 @@ function App() {
       <USERID.Provider value={getUserId}>
         <NavigationContainer>
           <stack.Navigator
-           initialRouteName={'Index'}
           >
             <stack.Screen
               name="Login"
